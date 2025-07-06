@@ -1,0 +1,11 @@
+[package]
+name = "llmweb"
+version = "0.1.0"
+edition = "2024"
+description = "Powering the Web with Rust & LLMs"
+license = "MIT"
+repository = "https://github.com/zTgx/llmweb.rs"
+readme = "README.md"
+keywords = ["llm", "web"]
+
+[dependencies]
