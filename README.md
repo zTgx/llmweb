@@ -7,3 +7,4 @@ Powering the Web with Rust & LLMs
 [![Crates Downloads](https://img.shields.io/crates/d/llmweb?logo=rust)](https://crates.io/crates/llmweb)
 
 </div>
+

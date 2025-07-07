@@ -9,3 +9,10 @@ readme = "README.md"
 keywords = ["llm", "web"]
 
 [dependencies]
+genai = "0.3.5"
+headless_chrome = "1.0.17"
+tokio = { version = "1.46.1", features = ["full"] }
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+regex = "1.0"
+thiserror = "2"
