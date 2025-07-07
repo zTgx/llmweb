@@ -9,6 +9,13 @@ use {
 mod error;
 mod models;
 
+#[derive(Debug, Clone)]
+pub enum LlmWebFormat {
+    Json,
+    Yaml,
+    Text,
+}
+
 pub struct LlmWeb {
     client: models::LLMClient,
 }
