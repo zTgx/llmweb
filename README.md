@@ -17,20 +17,6 @@
 
 ***Note: This project is under active development and APIs may change.***
 
-## 🚀 How It Works
-
-1. **Launch Headless Browser**  
-   Visits target URL, executes JavaScript, and retrieves final rendered HTML content
-
-2. **Content Extraction**  
-   Extracts textual content from the page's HTML
-
-3. **LLM Processing**  
-   Sends HTML content along with your defined Schema to the LLM
-
-4. **Structured Data Return**  
-   The LLM intelligently extracts information from unstructured HTML and returns JSON data strictly conforming to your Schema
-
 ## ✨ Core Features
 
 - **Webpage "API-ization"**  
@@ -63,9 +49,16 @@ llmweb = "0.1"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
-1. Configure API Key(GEMINI_API_KEY for example)
+1. Configure API Key(different providers choose one):
 ```bash
-export GEMINI_API_KEY="your_api_key_here"
+export OPENAI_API_KEY="sk-your-key-here"         # OpenAI
+export ANTHROPIC_API_KEY="sk-ant-your-key"       # Claude
+export GEMINI_API_KEY="your-google-key"          # Gemini
+export COHERE_API_KEY="your-cohere-key"          # Cohere
+export GROQ_API_KEY="gsk-your-key"               # Groq
+export XAI_API_KEY="xai-your-key"               # xAI
+export DEEPSEEK_API_KEY="your-deepseek-key"     # DeepSeek
+# Ollama typically requires no API key for local usage
 ```
 
 2. Create `LlmWeb` instance with corresponding model name

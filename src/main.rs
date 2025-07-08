@@ -1,8 +1,10 @@
-use clap::Parser;
-use llmweb::{LlmWeb, error::LlmWebError};
-use serde_json::{Value, from_str};
-use std::fs;
-use std::path::PathBuf;
+use {
+    llmweb::{LlmWeb, error::LlmWebError},
+    clap::Parser,
+    serde_json::{Value, from_str},
+    std::fs,
+    std::path::PathBuf,
+};
 
 /// A CLI tool to extract structured data from webpages using LLMs.
 #[derive(Parser, Debug)]
