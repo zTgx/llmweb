@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "properties": {
+        "tweet_text": {
+        "type": "string"
+        }
+    },
+    "required": ["tweet_text"]
+}

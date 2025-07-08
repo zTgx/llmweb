@@ -19,29 +19,14 @@
 ***✨ PRs are welcomed***  
 ***This project is under active development and APIs may change.***
 
-## ✨ Core Features
-
-- **Webpage "API-ization"**  
-  No need to write complex CSS selectors or XPath - describe your data structure in natural language
-
-- **Schema-First Approach**  
-  Define output format using `serde_json` to ensure data accuracy and consistency
-
-- **Async Core**  
-  Built on `tokio` for excellent performance in high-concurrency scenarios
-
-- **Rust-Powered**  
-  Combines memory safety with high performance
-
-- **Command Line Tool (CLI)**  
-  Ready-to-use terminal tool perfect for automation scripts
-
-## 💡 Use Cases
-
-- Extract headline lists from news sites (e.g., Hacker News)
-- Monitor product prices and inventory on e-commerce sites
-- Aggregate posts from different blogs or forums
-- Transform webpage content into structured data sources
+## Core Features
+ 
+- **🤖 Schema-Driven Extraction**
+- **🌐 Multi-Provider LLM Support:**
+- **📄 Human-Like Web Interaction:**
+- **⚡ High-Performance & Async:**
+- **💻 Simple & Powerful CLI:** 
+- **🦀 Rust-Powered Reliability:**
 
 ## Installation
 Add to your `Cargo.toml`:

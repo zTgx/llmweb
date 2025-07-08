@@ -14,43 +14,14 @@
 
 `llmweb` 是一个 Rust 库，它将无头浏览器（Headless Chrome）、Rust 的高性能异步能力与大语言模型（LLM）的强大理解力结合在一起。你只需要提供一个网址和一个你想要的数据结构（JSON Schema），`llmweb` 就能自动访问网页，像人一样"阅读"页面内容，并为你返回结构化的、干净的数据。
 
-## 🚀 工作原理
-
-1. **启动无头浏览器**  
-   访问目标 URL，执行 JavaScript，获取最终呈现的 HTML 内容
-
-2. **内容提取**  
-   将页面的 HTML 文本提取出来
-
-3. **LLM 处理**  
-   将 HTML 内容连同你定义的 Schema 一起发送给大模型
-
-4. **返回结构化数据**  
-   大模型会根据你的要求，智能地从非结构化的 HTML 中提取信息，并返回严格符合 Schema 格式的 JSON 数据
-
 ## ✨ 核心特性
 
-- **网页"API化"**  
-  无需编写繁琐的 CSS 选择器或 XPath，用自然语言描述数据结构即可
-
-- **模式优先 (Schema-First)**  
-  通过 `serde_json` 定义输出格式，保证数据准确性和一致性
-
-- **异步核心**  
-  基于 `tokio` 构建，性能卓越，轻松应对高并发场景
-
-- **Rust 赋能**  
-  兼具内存安全和高性能的优点
-
-- **命令行工具 (CLI)**  
-  开箱即用的终端工具，适合集成到自动化脚本中
-
-## 💡 应用场景
-
-- 从新闻网站（如 Hacker News）提取头条新闻列表
-- 监控电商网站的商品价格和库存
-- 聚合来自不同博客或论坛的帖子
-- 将网页内容转化为结构化数据源
+- **🤖 模式驱动提取 (Schema-Driven Extraction):** 使用 JSON Schema 定义你所需的数据结构。`llmweb` 会指示大语言模型（LLM）精确地提取和格式化数据以满足你的需求，确保输出干净、可预测且类型安全。 
+- **🌐 多模型供应商支持 (Multi-Provider LLM Support):** 不再局限于单一的生态系统。在主流的 LLM 供应商（如 OpenAI, Google (Gemini), Anthropic (Claude), Cohere 等）之间无缝切换。只需设置相应的 API 密钥和模型名称。
+- **📄 类人网页交互 (Human-Like Web Interaction):** 通过无头浏览器驱动，`llmweb` 能像用户一样“看到”网页。这使其能够理解动态加载的内容、复杂的布局以及传统抓取工具会遗漏的信息。
+- **⚡ 高性能异步核心 (High-Performance & Async):** 基于 `tokio` 构建，`llmweb` 从核心上就是异步的，能够高效地并发处理多个网页抓取任务。
+- **💻 简单强大的命令行工具 (Simple & Powerful CLI):** 内置开箱即用的命令行工具。轻松地将 `llmweb` 集成到你的 shell 脚本和数据管道中，只需传入一个 URL 和一个 schema 文件，即可在终端直接获取结构化数据。
+- **🦀 Rust 赋能的可靠性 (Rust-Powered Reliability):** 享受 Rust 带来的内存安全、高性能和稳健性，让你的数据提取工具既可靠又高效。
 
 ## Installation
 Add to your `Cargo.toml`:
