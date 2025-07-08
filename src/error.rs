@@ -18,6 +18,10 @@ pub enum LlmWebError {
     /// An I/O error, typically from reading a file.
     #[error("I/O error: {0}")]
     Io(String),
+
+    /// An JsBlocked error.
+    #[error("JsBlocked error")]
+    JsBlocked,
 }
 
 /// A specialized `Result` type for `llmweb` operations.

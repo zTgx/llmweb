@@ -16,7 +16,7 @@
 //! Here's a quick example of how to use `llmweb` to extract stories from Hacker News:
 //!
 //! ```rust,no_run
-//! use llmweb::{LlmWeb, LlmWebError};
+//! use llmweb::{LlmWeb, error::LlmWebError};
 //! use serde::{Deserialize, Serialize};
 //! use serde_json::json;
 //!
@@ -61,13 +61,16 @@
 //! }
 //! ```
 use {
-    crate::error::{LlmWebError, Result},
-    headless_chrome::Browser,
+    crate::{
+        browser::LlmWebBrower,
+        error::{LlmWebError, Result},
+    },
     serde::{Serialize, de::DeserializeOwned},
     serde_json::json,
     std::fmt::Debug,
 };
 
+mod browser;
 pub mod error;
 mod models;
 
@@ -129,21 +132,9 @@ impl LlmWeb {
         S: Serialize + Debug,
         R: DeserializeOwned + Debug,
     {
-        let browser = Browser::default()
-            .map_err(|e| LlmWebError::Browser(format!("Init Browser error: {e}")))?;
-
-        let tab = browser
-            .new_tab()
-            .map_err(|e| LlmWebError::Browser(format!("Browser new_tab error: {e}")))?;
-
-        tab.navigate_to(url)
-            .map_err(|e| LlmWebError::Browser(format!("Browser navigate_to error: {e}")))?;
-
-        let user_content = tab
-            .get_content()
-            .map_err(|e| LlmWebError::Browser(format!("Browser get_content error: {e}")))?;
-
-        let response = self.client.completion(&user_content, json!(scheme)).await?;
+        let browser = LlmWebBrower::new().await?;
+        let html = browser.run(url).await?;
+        let response = self.client.completion(&html, json!(scheme)).await?;
 
         let result: R = match serde_json::from_str(&response) {
             Ok(val) => val,
