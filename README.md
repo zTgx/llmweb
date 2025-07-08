@@ -31,7 +31,7 @@ export GEMINI_API_KEY="your_api_key_here"
 
 2. Create `LlmWeb` instance with corresponding model name
 ```rust
-    let llmweb = LlmWeb::new("gemini-2.0-flash");
+let llmweb = LlmWeb::new("gemini-2.0-flash");
 ```
 
 ## Example
@@ -129,3 +129,7 @@ Result
     ...
 ]
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zTgx/llmweb&type=Date)](https://www.star-history.com/#zTgx/llmweb&Date)
