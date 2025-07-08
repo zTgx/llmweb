@@ -15,7 +15,9 @@
 
 `llmweb` is a Rust library that combines Headless Chrome, Rust's high-performance async capabilities, and the powerful comprehension of Large Language Models (LLMs). Just provide a URL and your desired data structure (JSON Schema), and `llmweb` will automatically visit the webpage, "read" the content like a human, and return clean, structured data.
 
-***Note: This project is under active development and APIs may change.***
+
+***✨ PRs are welcomed***  
+***This project is under active development and APIs may change.***
 
 ## ✨ Core Features
 
@@ -143,6 +145,12 @@ cargo build
     ...
 ]
 ```
+
+## Examples
+More examples can be found in the [Examples](./examples/) directory.
+
+## Schemas
+More schemas can be found in the [Schemas](./schemas/) directory.
 
 ## Star History
 

@@ -1,6 +1,6 @@
 use {
-    llmweb::{LlmWeb, error::LlmWebError},
     clap::Parser,
+    llmweb::{LlmWeb, error::LlmWebError},
     serde_json::{Value, from_str},
     std::fs,
     std::path::PathBuf,
