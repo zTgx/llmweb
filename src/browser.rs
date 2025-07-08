@@ -37,8 +37,8 @@ async fn stealth_navigation(browser: &Browser, url: &str) -> Result<String> {
     tab.navigate_to(url)
         .map_err(|e| LlmWebError::Browser(format!("Browser navigate_to error: {e}")))?;
 
-    tab.wait_until_navigated()
-        .map_err(|e| LlmWebError::Browser(format!("Browser wait_until_navigated error: {e}")))?;
+    // tab.wait_until_navigated()
+    //     .map_err(|e| LlmWebError::Browser(format!("Browser wait_until_navigated error: {e}")))?;
 
     let html = tab
         .get_content()
@@ -62,15 +62,13 @@ async fn browser_launch_options<'a>() -> Result<LaunchOptions<'a>> {
         OsStr::new("--no-sandbox"),
         OsStr::new("--disable-web-security"),
         OsStr::new(
-            "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36",
         ),
         OsStr::new("--lang=en-US,en;q=0.9"),
         OsStr::new("--disable-dev-shm-usage"),
         OsStr::new("--disable-gpu"),
         OsStr::new("--disable-infobars"),
         OsStr::new("--no-first-run"),
-        OsStr::new("--enable-automation=false"),
-        OsStr::new("--enable-javascript=true"),
     ];
 
     LaunchOptionsBuilder::default()
