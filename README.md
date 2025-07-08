@@ -1,6 +1,6 @@
 <div align="center">
 
-# llmweb.rs   
+# llmweb   
 **Powering the Web with Rust & LLMs**
 
 [![Version](https://img.shields.io/crates/v/llmweb)](https://crates.io/crates/llmweb)
