@@ -68,7 +68,7 @@ use {
     std::fmt::Debug,
 };
 
-mod error;
+pub mod error;
 mod models;
 
 /// Represents the desired output format.

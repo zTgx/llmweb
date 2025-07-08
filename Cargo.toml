@@ -8,6 +8,10 @@ repository = "https://github.com/zTgx/llmweb.rs"
 readme = "README.md"
 keywords = ["llm", "web"]
 
+[[bin]]
+name = "llmweb-cli"
+path = "src/main.rs"
+
 [dependencies]
 genai = "0.3.5"
 headless_chrome = "1.0.17"
