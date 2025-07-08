@@ -78,6 +78,18 @@ async fn main() {
 }
 ```
 
+## CLI
+```bash
+# Make sure your GEMINI_API_KEY is set
+export GEMINI_API_KEY="your_api_key_here"
+
+# Build the project
+cargo build
+
+# Run the CLI
+./target/debug/llmweb-cli --schema-file schemas/hn_schema.json https://news.ycombinator.com
+```
+
 ## Output
 ```bash
 [
@@ -105,25 +117,13 @@ async fn main() {
 ]
 ```
 
-## CLI
-```bash
-# Make sure your GEMINI_API_KEY is set
-export GEMINI_API_KEY="your_api_key_here"
-
-# Build the project
-cargo build
-
-# Run the CLI
-./target/debug/llmweb-cli --schema-file schemas/hn_schema.json https://news.ycombinator.com
-```
-
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=zTgx/llmweb&type=Date)](https://www.star-history.com/#zTgx/llmweb&Date)
 
 ## Contributing
 
-We welcome contributions! Please see our `CONTRIBUTING.md` for more details on how to get started.
+We welcome contributions! Please see our CONTRIBUTING.md for more details on how to get started.
 
 ## License
 
