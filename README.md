@@ -1,6 +1,6 @@
 <div align="center">
 
-# llmweb.rs   
+# llmweb   
 **Powering the Web with Rust & LLMs**
 
 [![Version](https://img.shields.io/crates/v/llmweb)](https://crates.io/crates/llmweb)
@@ -15,6 +15,11 @@
 - ✨ Automatic structured data extraction from web content
 - 🔧 Schema-first approach for precise data formatting
 - ⚡ Async-first design for high performance
+- 🌐 Web content extraction and summarization
+- 💬 Multi-modal input support (text, images, etc.)
+- 🛡️ Robust error handling and retry mechanisms  
+- 💻 CLI for quick and easy interaction
+- 📚 Comprehensive documentation and examples
 
 ## Installation
 Add to your `Cargo.toml`:
@@ -31,7 +36,7 @@ export GEMINI_API_KEY="your_api_key_here"
 
 2. Create `LlmWeb` instance with corresponding model name
 ```rust
-    let llmweb = LlmWeb::new("gemini-2.0-flash");
+let llmweb = LlmWeb::new("gemini-2.0-flash");
 ```
 
 ## Example
@@ -73,7 +78,19 @@ async fn main() {
 }
 ```
 
-Result
+## CLI
+```bash
+# Make sure your GEMINI_API_KEY is set
+export GEMINI_API_KEY="your_api_key_here"
+
+# Build the project
+cargo build
+
+# Run the CLI
+./target/debug/llmweb-cli --schema-file schemas/hn_schema.json https://news.ycombinator.com
+```
+
+## Output
 ```bash
 [
     Story {
@@ -96,36 +113,18 @@ Result
             "item?id=44479502",
         ),
     },
-    Story {
-        title: "New Quantum Paradox Clarifies Where Our Views of Reality Go Wrong",
-        points: 15.0,
-        by: Some(
-            "tejohnso",
-        ),
-        comments_url: Some(
-            "item?id=44489797",
-        ),
-    },
-    Story {
-        title: "Bitchat – A decentralized messaging app that works over Bluetooth mesh networks",
-        points: 480.0,
-        by: Some(
-            "ananddtyagi",
-        ),
-        comments_url: Some(
-            "item?id=44485342",
-        ),
-    },
-    Story {
-        title: "Mercury: Ultra-Fast Language Models Based on Diffusion",
-        points: 5.0,
-        by: Some(
-            "PaulHoule",
-        ),
-        comments_url: Some(
-            "item?id=44489690",
-        ),
-    },
     ...
 ]
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zTgx/llmweb&type=Date)](https://www.star-history.com/#zTgx/llmweb&Date)
+
+## Contributing
+
+We welcome contributions! Please see our CONTRIBUTING.md for more details on how to get started.
+
+## License
+
+This project is licensed under the MIT License - see the `LICENSE` file for details.
