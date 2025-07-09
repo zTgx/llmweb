@@ -6,7 +6,7 @@
 //! use an LLM to get structured data from it based on a provided schema.
 //!
 //! ## Features
-//! - 🚀 Seamless integration with major LLM APIs (currently Gemini).
+//! - 🚀 Seamless integration with major LLM APIs.
 //! - ✨ Automatic structured data extraction from web content.
 //! - 🔧 Schema-first approach for precise data formatting using `serde_json::Value`.
 //! - ⚡ Async-first design for high performance.
@@ -157,5 +157,40 @@ impl LlmWeb {
     {
         let scheme: serde_json::Value = serde_json::from_str(schema_str)?;
         self.completion(url, scheme).await
+    }
+
+    /// Fetches content from a URL, sends it to an LLM for processing based on a schema,
+    /// and returns the structured data.
+    ///
+    /// This function performs the following steps:
+    /// 1. Launches a headless browser.
+    /// 2. Navigates to the specified URL.
+    /// 3. Extracts the HTML content of the page.
+    /// 4. Sends the content and a JSON schema to the configured LLM.
+    /// 5. Parses the LLM's JSON response into the specified Rust type `R`.
+    ///
+    /// This method is intended for streaming responses.
+    ///
+    /// # Arguments
+    ///
+    /// * `url` - The URL of the web page to process.
+    /// * `scheme` - A serializable object representing the JSON schema for data extraction.
+    ///   This is typically a `serde_json::Value`.
+    ///
+    /// # Errors
+    ///
+    /// This function can return an `LlmWebError` if any of the steps fail, such as
+    /// browser errors, network issues, LLM API errors, or JSON deserialization errors.
+    pub async fn completion_stream<R>(&self, url: &str, scheme: serde_json::Value) -> Result<R>
+    where
+        R: DeserializeOwned + Debug,
+    {
+        let browser = LlmWebBrower::new().await?;
+        let html = browser.run(url).await?;
+        let response = self.client.completion_stream(&html, scheme).await?;
+
+        let result: R = serde_json::from_str(&response)?;
+
+        Ok(result)
     }
 }

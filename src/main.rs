@@ -44,7 +44,7 @@ async fn main() -> std::result::Result<(), LlmWebError> {
     // 4. Print the result as pretty-printed JSON to standard output.
     let pretty_json = serde_json::to_string_pretty(&result)?;
 
-    println!("{}", pretty_json);
+    println!("{pretty_json}");
 
     Ok(())
 }

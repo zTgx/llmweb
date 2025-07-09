@@ -1,5 +1,6 @@
 use llmweb::LlmWeb;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VXNA {
@@ -24,11 +25,12 @@ pub struct VXNA {
 
 #[tokio::main]
 async fn main() {
+    // Load the schema from an external file as a string.
     let schema_str = include_str!("../schemas/v2ex_schema.json");
+    let schema: Value = serde_json::from_str(schema_str).unwrap();
 
-    let llmweb = LlmWeb::new("gemini-2.0-flash");
-    let structed_value: Vec<VXNA> = llmweb
-        .completion_from_schema_str("https://v2ex.com/go/vxna", schema_str)
+    let structed_value: Vec<VXNA> = LlmWeb::new("gemini-2.0-flash")
+        .completion_stream("https://v2ex.com/go/vxna", schema)
         .await
         .unwrap();
     println!("{:#?}", structed_value);

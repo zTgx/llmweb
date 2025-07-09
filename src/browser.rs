@@ -76,5 +76,5 @@ async fn browser_launch_options<'a>() -> Result<LaunchOptions<'a>> {
         .window_size(Some((1200, 800)))
         .args(v)
         .build()
-        .map_err(|e| LlmWebError::Browser(format!("{}", e)))
+        .map_err(|e| LlmWebError::Browser(format!("{e}")))
 }

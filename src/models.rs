@@ -2,7 +2,10 @@ use {
     crate::error::{LlmWebError, Result},
     genai::{
         Client,
-        chat::{ChatMessage, ChatOptions, ChatRequest, ChatResponseFormat, JsonSpec},
+        chat::{
+            ChatMessage, ChatOptions, ChatRequest, ChatResponseFormat, JsonSpec,
+            printer::print_chat_stream,
+        },
     },
     serde_json::{Value, json},
 };
@@ -62,6 +65,31 @@ impl LLMClient {
         Err(LlmWebError::ModelClient(
             "Content to string error".to_string(),
         ))
+    }
+
+    pub async fn completion_stream(&self, user_content: &str, scheme: Value) -> Result<String> {
+        let op = ChatOptions::default().with_response_format(ChatResponseFormat::JsonSpec(
+            JsonSpec::new("LlmWeb", json!(scheme)),
+        ));
+        let chat_req = ChatRequest::new(vec![
+            ChatMessage::system(SYSTEM_PROMPT),
+            ChatMessage::user(user_content),
+        ]);
+
+        // Execute the chat request with streaming enabled
+        let response_stream = self
+            .client
+            .exec_chat_stream(&self.model, chat_req, Some(&op))
+            .await
+            .map_err(|e| LlmWebError::ModelClient(format!("{e}")))?;
+
+        let text = print_chat_stream(response_stream, None)
+            .await
+            .map_err(|e| LlmWebError::ModelClient(format!("{e}")))?;
+
+        // Strip markdown backticks from the accumulated content
+        let text = strip_markdown_backticks!(text);
+        Ok(text)
     }
 }
 

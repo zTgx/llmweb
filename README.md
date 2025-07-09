@@ -18,7 +18,7 @@ Just provide a URL and your desired data structure (JSON Schema), and `llmweb` w
 ***✨ PRs are welcomed***  
 ***This project is under active development and APIs may change.***
 
-## Core Features
+## ✨ Key Features
  
 - **🤖 Schema-Driven Extraction**
 - **🌐 Multi-Provider LLM Support**
@@ -52,7 +52,7 @@ export DEEPSEEK_API_KEY="your-deepseek-key"     # DeepSeek
 let llmweb = LlmWeb::new("gemini-2.0-flash");
 ```
 
-## Example
+## Fetching from HN
 ```rust
 use llmweb::LlmWeb;
 use serde::{Deserialize, Serialize};
@@ -83,7 +83,62 @@ async fn main() {
 }
 ```
 
-## CLI
+## Fetching from v2ex
+```rust
+use llmweb::LlmWeb;
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct VXNA {
+    pub username: String,
+
+    pub avatar_url: String,
+
+    pub profile_url: String,
+
+    pub title: String,
+
+    pub topic_url: String,
+
+    pub topic_id: u64,
+
+    pub relative_time: String,
+
+    pub reply_count: u32,
+
+    pub last_replier: Option<String>,
+}
+
+#[tokio::main]
+async fn main() {
+    let schema_str = include_str!("../schemas/v2ex_schema.json");
+
+    let llmweb = LlmWeb::new("gemini-2.0-flash");
+    let structed_value: Vec<VXNA> = llmweb
+        .completion_from_schema_str("https://v2ex.com/go/vxna", schema_str)
+        .await
+        .unwrap();
+    println!("{:#?}", structed_value);
+}
+```
+
+## Fetching by stream
+```rust
+#[tokio::main]
+async fn main() {
+    // Load the schema from an external file as a string.
+    let schema_str = include_str!("../schemas/v2ex_schema.json");
+    let schema: Value = serde_json::from_str(schema_str).unwrap();
+
+    let structed_value: Vec<VXNA> = LlmWeb::new("gemini-2.0-flash")
+        .completion_stream("https://v2ex.com/go/vxna", schema)
+        .await
+        .unwrap();
+    println!("{:#?}", structed_value);
+}
+```
+
+## Cli mode
 ```bash
 # Make sure your GEMINI_API_KEY is set
 export GEMINI_API_KEY="your_api_key_here"
@@ -93,33 +148,6 @@ cargo build
 
 # Run the CLI
 ./target/debug/llmweb-cli --schema-file schemas/hn_schema.json https://news.ycombinator.com
-```
-
-## Output
-```bash
-[
-    Story {
-        title: "François Chollet: The Arc Prize and How We Get to AGI [video]",
-        points: 43.0,
-        by: Some(
-            "sandslash",
-        ),
-        comments_url: Some(
-            "item?id=44455175",
-        ),
-    },
-    Story {
-        title: "When Figma starts designing us",
-        points: 24.0,
-        by: Some(
-            "bravomartin",
-        ),
-        comments_url: Some(
-            "item?id=44479502",
-        ),
-    },
-    ...
-]
 ```
 
 ## Examples
