@@ -37,8 +37,8 @@ async fn stealth_navigation(browser: &Browser, url: &str) -> Result<String> {
     tab.navigate_to(url)
         .map_err(|e| LlmWebError::Browser(format!("Browser navigate_to error: {e}")))?;
 
-    // tab.wait_until_navigated()
-    //     .map_err(|e| LlmWebError::Browser(format!("Browser wait_until_navigated error: {e}")))?;
+    tab.wait_until_navigated()
+        .map_err(|e| LlmWebError::Browser(format!("Browser wait_until_navigated error: {e}")))?;
 
     let html = tab
         .get_content()
