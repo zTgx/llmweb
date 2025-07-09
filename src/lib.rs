@@ -61,12 +61,8 @@
 //! }
 //! ```
 use {
-    crate::{
-        browser::LlmWebBrower,
-        error::{LlmWebError, Result},
-    },
-    serde::{Serialize, de::DeserializeOwned},
-    serde_json::json,
+    crate::{browser::LlmWebBrower, error::Result},
+    serde::de::DeserializeOwned,
     std::fmt::Debug,
 };
 
@@ -127,22 +123,39 @@ impl LlmWeb {
     ///
     /// This function can return an `LlmWebError` if any of the steps fail, such as
     /// browser errors, network issues, LLM API errors, or JSON deserialization errors.
-    pub async fn completion<S, R>(&self, url: &str, scheme: S) -> Result<R>
+    pub async fn completion<R>(&self, url: &str, scheme: serde_json::Value) -> Result<R>
     where
-        S: Serialize + Debug,
         R: DeserializeOwned + Debug,
     {
         let browser = LlmWebBrower::new().await?;
         let html = browser.run(url).await?;
-        let response = self.client.completion(&html, json!(scheme)).await?;
+        let response = self.client.completion(&html, scheme).await?;
 
-        let result: R = match serde_json::from_str(&response) {
-            Ok(val) => val,
-            Err(e) => {
-                return Err(LlmWebError::SerdeJson(e));
-            }
-        };
+        // The `?` operator is used here thanks to `#[from] serde_json::Error` on LlmWebError.
+        let result: R = serde_json::from_str(&response)?;
 
         Ok(result)
+    }
+
+    /// A convenience method that accepts a schema as a string slice.
+    ///
+    /// This method is useful when loading a schema from a file. It parses the
+    /// string into a `serde_json::Value` and then calls the main `completion` method.
+    ///
+    /// # Arguments
+    ///
+    /// * `url` - The URL of the web page to process.
+    /// * `schema_str` - A string slice containing the JSON schema.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the `schema_str` is not valid JSON, or if any of the
+    /// underlying operations in `completion` fail.
+    pub async fn completion_from_schema_str<R>(&self, url: &str, schema_str: &str) -> Result<R>
+    where
+        R: DeserializeOwned + Debug,
+    {
+        let scheme: serde_json::Value = serde_json::from_str(schema_str)?;
+        self.completion(url, scheme).await
     }
 }
