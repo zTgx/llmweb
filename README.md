@@ -1,8 +1,6 @@
 <div align="center">
 
 # llmweb   
-<summary>English | <a href="README-CN.md">中文</a></summary>
-
 **Empower the Web with Rust & AI**
 
 [![Version](https://img.shields.io/crates/v/llmweb)](https://crates.io/crates/llmweb)
