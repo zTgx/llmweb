@@ -3,7 +3,7 @@
 # llmweb   
 <summary>English | <a href="README-CN.md">中文</a></summary>
 
-**Web to Structured Data with Rust & LLM**
+**Empower the Web with Rust & AI**
 
 [![Version](https://img.shields.io/crates/v/llmweb)](https://crates.io/crates/llmweb)
 [![Downloads](https://img.shields.io/crates/d/llmweb?logo=rust)](https://crates.io/crates/llmweb)
@@ -93,21 +93,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VXNA {
     pub username: String,
-
     pub avatar_url: String,
-
     pub profile_url: String,
-
     pub title: String,
-
     pub topic_url: String,
-
     pub topic_id: u64,
-
     pub relative_time: String,
-
     pub reply_count: u32,
-
     pub last_replier: Option<String>,
 }
 
