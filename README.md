@@ -3,7 +3,7 @@
 # llmweb   
 <summary>English | <a href="README-CN.md">中文</a></summary>
 
-**Powering the Web with Rust & LLMs**
+**Web to Structured Data with Rust & LLM**
 
 [![Version](https://img.shields.io/crates/v/llmweb)](https://crates.io/crates/llmweb)
 [![Downloads](https://img.shields.io/crates/d/llmweb?logo=rust)](https://crates.io/crates/llmweb)
@@ -12,27 +12,24 @@
 
 </div>
 
-Just provide a URL and your desired data structure (JSON Schema), and `llmweb` will automatically visit the webpage, "read" the content like a human, and return clean, structured data.
-
-
-***✨ PRs are welcomed***  
-***This project is under active development and APIs may change.***
+> [!IMPORTANT]
+> ***This project is under active development and APIs may change.***
 
 ## ✨ Key Features
  
 - **🤖 Schema-Driven Extraction**
 - **🌐 Multi-Provider LLM Support**
-- **📄 Human-Like Web Interaction**
 - **⚡ High-Performance & Async**
 - **💻 Simple & Powerful CLI** 
 - **🦀 Rust-Powered Reliability**
+- **📄 Streaming**
+
 
 ## Installation
 Add to your `Cargo.toml`:
 ```toml
 [dependencies]
 llmweb = "0.1"
-tokio = { version = "1.0", features = ["full"] }
 ```
 
 1. Configure API Key(different providers choose one):
@@ -47,12 +44,17 @@ export DEEPSEEK_API_KEY="your-deepseek-key"     # DeepSeek
 # Ollama typically requires no API key for local usage
 ```
 
-2. Create `LlmWeb` instance with corresponding model name
+2. Pick the model you want to use:
 ```rust
-let llmweb = LlmWeb::new("gemini-2.0-flash");
+let model = "gemini-2.0-flash";
 ```
 
-## Fetching from HN
+3. Create `LlmWeb` instance with the model:
+```rust
+let llmweb = LlmWeb::new(model);
+```
+
+## Example - HN
 ```rust
 use llmweb::LlmWeb;
 use serde::{Deserialize, Serialize};
@@ -83,7 +85,7 @@ async fn main() {
 }
 ```
 
-## Fetching from v2ex
+## Example - V2EX
 ```rust
 use llmweb::LlmWeb;
 use serde::{Deserialize, Serialize};
@@ -122,7 +124,7 @@ async fn main() {
 }
 ```
 
-## Fetching by stream
+## Streaming
 ```rust
 #[tokio::main]
 async fn main() {
@@ -138,14 +140,8 @@ async fn main() {
 }
 ```
 
-## Cli mode
+## Cli
 ```bash
-# Make sure your GEMINI_API_KEY is set
-export GEMINI_API_KEY="your_api_key_here"
-
-# Build the project
-cargo build
-
 # Run the CLI
 ./target/debug/llmweb-cli --schema-file schemas/hn_schema.json https://news.ycombinator.com
 ```
