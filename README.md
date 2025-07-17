@@ -135,6 +135,42 @@ async fn main() {
 ./target/debug/llmweb-cli --schema-file schemas/hn_schema.json https://news.ycombinator.com
 ```
 
+## Output
+```json
+[
+  {
+    "by": "sandslash",
+    "comments_url": "item?id=44455175",
+    "points": 43.0,
+    "title": "François Chollet: The Arc Prize and How We Get to AGI [video]"
+  },
+  {
+    "by": "bravomartin",
+    "comments_url": "item?id=44479502",
+    "points": 24.0,
+    "title": "When Figma starts designing us"
+  },
+  {
+    "by": "tejohnso",
+    "comments_url": "item?id=44489797",
+    "points": 15.0,
+    "title": "New Quantum Paradox Clarifies Where Our Views of Reality Go Wrong"
+  },
+  {
+    "by": "ananddtyagi",
+    "comments_url": "item?id=44485342",
+    "points": 480.0,
+    "title": "Bitchat – A decentralized messaging app that works over Bluetooth mesh networks"
+  },
+  {
+    "by": "PaulHoule",
+    "comments_url": "item?id=44489690",
+    "points": 5.0,
+    "title": "Mercury: Ultra-Fast Language Models Based on Diffusion"
+  }
+]
+```
+
 ## Examples
 More examples can be found in the [Examples](./examples/) directory.
 
