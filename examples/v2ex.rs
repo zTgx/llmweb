@@ -28,7 +28,7 @@ async fn main() {
 
     let llmweb = LlmWeb::new("gemini-2.0-flash");
     let structed_value: Vec<VXNA> = llmweb
-        .completion_from_schema_str("https://v2ex.com/go/vxna", schema_str)
+        .exec_from_schema_str("https://v2ex.com/go/vxna", schema_str)
         .await
         .unwrap();
     println!("{:#?}", structed_value);

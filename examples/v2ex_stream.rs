@@ -30,7 +30,7 @@ async fn main() {
     let schema: Value = serde_json::from_str(schema_str).unwrap();
 
     let structed_value: Vec<VXNA> = LlmWeb::new("gemini-2.0-flash")
-        .completion_stream("https://v2ex.com/go/vxna", schema)
+        .stream("https://v2ex.com/go/vxna", schema)
         .await
         .unwrap();
     println!("{:#?}", structed_value);

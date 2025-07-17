@@ -123,7 +123,7 @@ impl LlmWeb {
     ///
     /// This function can return an `LlmWebError` if any of the steps fail, such as
     /// browser errors, network issues, LLM API errors, or JSON deserialization errors.
-    pub async fn completion<R>(&self, url: &str, scheme: serde_json::Value) -> Result<R>
+    pub async fn exec<R>(&self, url: &str, scheme: serde_json::Value) -> Result<R>
     where
         R: DeserializeOwned + Debug,
     {
@@ -151,12 +151,12 @@ impl LlmWeb {
     ///
     /// Returns an error if the `schema_str` is not valid JSON, or if any of the
     /// underlying operations in `completion` fail.
-    pub async fn completion_from_schema_str<R>(&self, url: &str, schema_str: &str) -> Result<R>
+    pub async fn exec_from_schema_str<R>(&self, url: &str, schema_str: &str) -> Result<R>
     where
         R: DeserializeOwned + Debug,
     {
         let scheme: serde_json::Value = serde_json::from_str(schema_str)?;
-        self.completion(url, scheme).await
+        self.exec(url, scheme).await
     }
 
     /// Fetches content from a URL, sends it to an LLM for processing based on a schema,
@@ -181,7 +181,7 @@ impl LlmWeb {
     ///
     /// This function can return an `LlmWebError` if any of the steps fail, such as
     /// browser errors, network issues, LLM API errors, or JSON deserialization errors.
-    pub async fn completion_stream<R>(&self, url: &str, scheme: serde_json::Value) -> Result<R>
+    pub async fn stream<R>(&self, url: &str, scheme: serde_json::Value) -> Result<R>
     where
         R: DeserializeOwned + Debug,
     {

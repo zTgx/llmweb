@@ -17,10 +17,10 @@ async fn main() {
     let llmweb = LlmWeb::new("gemini-2.0-flash");
     eprintln!("Fetching from Hacker News and extracting stories...");
 
-    // Use the convenience method `completion_from_schema_str` which handles
+    // Use the convenience method `exec_from_schema_str` which handles
     // parsing the schema string internally.
     let structed_value: Vec<Story> = llmweb
-        .completion_from_schema_str("https://news.ycombinator.com", schema_str)
+        .exec_from_schema_str("https://news.ycombinator.com", schema_str)
         .await
         .unwrap();
     println!("{:#?}", structed_value);

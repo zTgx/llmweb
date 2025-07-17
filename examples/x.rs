@@ -17,7 +17,7 @@ async fn main() {
 
     let llmweb = LlmWeb::new("gemini-2.0-flash");
     let structed_value: Value = llmweb
-        .completion(
+        .exec(
             "https://x.com/ztgx5/status/1942242787317133452",
             schema_json,
         )

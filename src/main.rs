@@ -39,7 +39,7 @@ async fn main() -> std::result::Result<(), LlmWebError> {
     eprintln!("Using model: {}", &args.model);
 
     // 3. Perform the completion, deserializing into a generic serde_json::Value.
-    let result: Value = llmweb.completion(&args.url, schema).await?;
+    let result: Value = llmweb.exec(&args.url, schema).await?;
 
     // 4. Print the result as pretty-printed JSON to standard output.
     let pretty_json = serde_json::to_string_pretty(&result)?;

@@ -1,7 +1,7 @@
 <div align="center">
 
 # llmweb   
-**Empower the Web with Rust & AI**
+**Extract any webpage to structured data in Rust & LLM**
 
 [![Version](https://img.shields.io/crates/v/llmweb)](https://crates.io/crates/llmweb)
 [![Downloads](https://img.shields.io/crates/d/llmweb?logo=rust)](https://crates.io/crates/llmweb)
@@ -21,7 +21,6 @@
 - **💻 Simple & Powerful CLI** 
 - **🦀 Rust-Powered Reliability**
 - **📄 Streaming**
-
 
 ## Installation
 Add to your `Cargo.toml`:
@@ -52,37 +51,6 @@ let model = "gemini-2.0-flash";
 let llmweb = LlmWeb::new(model);
 ```
 
-## Example - HN
-```rust
-use llmweb::LlmWeb;
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Serialize, Deserialize)]
-struct Story {
-    title: String,
-    points: f32,
-    by: Option<String>,
-    comments_url: Option<String>,
-}
-
-#[tokio::main]
-async fn main() {
-    // Load the schema from an external file as a string.
-    let schema_str = include_str!("../schemas/hn_schema.json");
-
-    let llmweb = LlmWeb::new("gemini-2.0-flash");
-    eprintln!("Fetching from Hacker News and extracting stories...");
-
-    // Use the convenience method `completion_from_schema_str` which handles
-    // parsing the schema string internally.
-    let structed_value: Vec<Story> = llmweb
-        .completion_from_schema_str("https://news.ycombinator.com", schema_str)
-        .await
-        .unwrap();
-    println!("{:#?}", structed_value);
-}
-```
-
 ## Example - V2EX
 ```rust
 use llmweb::LlmWeb;
@@ -107,7 +75,7 @@ async fn main() {
 
     let llmweb = LlmWeb::new("gemini-2.0-flash");
     let structed_value: Vec<VXNA> = llmweb
-        .completion_from_schema_str("https://v2ex.com/go/vxna", schema_str)
+        .exec_from_schema_str("https://v2ex.com/go/vxna", schema_str)
         .await
         .unwrap();
     println!("{:#?}", structed_value);
@@ -123,7 +91,38 @@ async fn main() {
     let schema: Value = serde_json::from_str(schema_str).unwrap();
 
     let structed_value: Vec<VXNA> = LlmWeb::new("gemini-2.0-flash")
-        .completion_stream("https://v2ex.com/go/vxna", schema)
+        .stream("https://v2ex.com/go/vxna", schema)
+        .await
+        .unwrap();
+    println!("{:#?}", structed_value);
+}
+```
+
+## Example - HN
+```rust
+use llmweb::LlmWeb;
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Story {
+    title: String,
+    points: f32,
+    by: Option<String>,
+    comments_url: Option<String>,
+}
+
+#[tokio::main]
+async fn main() {
+    // Load the schema from an external file as a string.
+    let schema_str = include_str!("../schemas/hn_schema.json");
+
+    let llmweb = LlmWeb::new("gemini-2.0-flash");
+    eprintln!("Fetching from Hacker News and extracting stories...");
+
+    // Use the convenience method `exec_from_schema_str` which handles
+    // parsing the schema string internally.
+    let structed_value: Vec<Story> = llmweb
+        .exec_from_schema_str("https://news.ycombinator.com", schema_str)
         .await
         .unwrap();
     println!("{:#?}", structed_value);
